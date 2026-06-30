@@ -41,5 +41,35 @@ FROM books
 WHERE language = 'English'
 ORDER BY title ASC; */
 
+/*Show me all English books published after 2015
+SELECT *
+FROM books
+WHERE language = 'English' AND publication_year>2015;
+*/
 
+/*I want books that are  either in English OR were 
+published after 2015
+Select *
+FROM books
+WHERE language = 'English' or publication_year>2015;
+*/
+
+/* Show the title of all English books published after 
+2015, ordered from the  newest to oldest. 
+
+SELECT *
+FROM books
+WHERE language = 'English' AND publication_year>2015
+ORDER BY publication_year DESC
+LIMIT 5;
+*/
+
+/* Show me the titles and publication years
+ of three oldest English Books */
+
+ SELECT title, publication_year
+ FROM books
+WHERE language='English'
+ORDER BY publication_year ASC
+LIMIT 3;
 
