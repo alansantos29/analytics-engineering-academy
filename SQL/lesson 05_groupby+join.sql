@@ -17,7 +17,7 @@ SELECT
     sum(amount)
 FROM sales
 GROUP BY region;
-*/
+
 
 -- 3. What would the total sales be for North and South?
 SELECT 
@@ -26,3 +26,25 @@ SELECT
 FROM sales
 GROUP BY region
 HAVING region = 'North' OR region = 'South';
+
+-- 4. Only consider sales greater than 400 MZN. 
+Group those remaining sales by salesperson. 
+Return only salespeople whose total 
+ sales exceed 700 MZN.
+
+ */
+
+
+SELECT
+    salesperson,
+    sum (amount)
+
+FROM
+    sales
+WHERE amount > 400
+GROUP BY salesperson
+HAVING sum (amount) > 700;
+
+
+
+ 
