@@ -1,4 +1,11 @@
-SELECT *
-    
+SELECT  
+        employee,
+        salary
 
-FROM employees;
+FROM employees
+                 
+
+WHERE salary in (Select
+                        MAX(salary)
+                FROM employees
+                WHERE department ='HR');
