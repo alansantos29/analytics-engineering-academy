@@ -51,6 +51,10 @@ values
 
 */
 
+/* Show employees who earn more than the 
+average salary of their own department 
+AND 
+who are assigned to at least one project. */
 
 SELECT 
         employee,
@@ -69,3 +73,4 @@ AND EXISTS (SELECT
               FROM projects a
               WHERE e.employee_id = a.employee_id
                 );
+                
