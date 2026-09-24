@@ -89,7 +89,7 @@ FROM large_departments;
 --Calculate how many projects each employee has, 
 --then return only employees who have more than 
 --one project.
-
+/*
 WITH employee_projects AS (
     SELECT
         i.employee,
@@ -112,3 +112,26 @@ employee_projects2 AS (
 SELECT *
 FROM employee_projects2
 WHERE Number_of_Projects >1;
+*/
+
+--============================================
+--Shows every department and the total number of 
+--projects assigned to employees in that department,
+-- including departments whose employees have no 
+--projects.
+
+WITH department_projects AS (
+    SELECT
+            e.department,
+            COUNT(i.project_id)
+    FROM employees e
+    LEFT JOIN projects i
+    ON e.employee_id = i.employee_id
+    GROUP BY e.department
+)
+
+SELECT *
+FROM department_projects;
+
+
+
