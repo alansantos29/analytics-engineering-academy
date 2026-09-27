@@ -54,7 +54,7 @@ FROM
 
 --=============================================
 --ROW_NUMBER() vs RANK() vs DENSE_RANK()
-
+/*
 SELECT
     employee,
     department,
@@ -68,3 +68,45 @@ SELECT
 
 FROM
     employees;
+    */
+
+    --========================================
+    --Return the highest-paid employee
+    -- in each department.
+    --======================================
+/*
+   WITH ranked_employess AS (
+    
+    SELECT
+            ROW_NUMBER() OVER (
+                PARTITION BY department
+                ORDER BY salary DESC) AS salary_position
+    FROM employees
+)
+
+SELECT *
+FROM ranked_employess
+WHERE salary_position =1;
+*/
+
+--==========================================
+--Running totals with SUM() OVER()
+
+WITH running_sales AS (
+    
+        SELECT 
+            month,
+            sales,
+            ROW_NUMBER() OVER () AS month_number
+
+        FROM
+            monthly_sales
+)
+
+SELECT 
+        month,
+        sales,
+        SUM(sales) OVER(
+            ORDER BY month_number )
+
+FROM running_sales;
