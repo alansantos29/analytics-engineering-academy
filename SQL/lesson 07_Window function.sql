@@ -92,6 +92,7 @@ WHERE salary_position =1;
 --==========================================
 --Running totals with SUM() OVER()
 
+/*
 WITH running_sales AS (
     
         SELECT 
@@ -110,3 +111,14 @@ SELECT
             ORDER BY month_number )
 
 FROM running_sales;
+*/
+
+--Another Sum() over()
+SELECT
+    month,
+    salesperson,
+    sales,
+    sum(sales) OVER (PARTITION BY salesperson
+    ORDER BY month_number) AS running_total
+
+FROM monthly_sales;
