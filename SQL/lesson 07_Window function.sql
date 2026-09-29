@@ -114,6 +114,7 @@ FROM running_sales;
 */
 
 --Another Sum() over()
+/*
 SELECT
     month,
     salesperson,
@@ -122,3 +123,69 @@ SELECT
     ORDER BY month_number) AS running_total
 
 FROM monthly_sales;
+*/
+
+--============================================
+--LAG()
+/*
+SELECT
+    month,
+    salesperson,
+    sales,
+    LAG(sales) OVER (
+        PARTITION BY salesperson
+        order BY month_number) AS previous_month_sales
+
+
+FROM 
+    monthly_sales;
+    */
+
+--============================================
+--subtract that directly from the current sales
+/*
+SELECT
+    month,
+    salesperson,
+    sales,
+    Sales - LAG(sales) OVER (PARTITION BY salesperson
+    ORDER By month_number) AS sales_change
+
+
+FROM
+    monthly_sales;
+*/
+--===========================================
+--Moving Averages
+/*
+SELECT
+    month,
+    salesperson,
+    sales,
+    AVG(sales) OVER (
+        PARTITION BY salesperson
+        ORDER BY month_number
+        ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)
+
+FROM
+    monthly_sales;
+*/
+
+--===========================================
+--Final Challenge
+
+SELECT
+    month,
+    salesperson,
+    region,
+    sales,
+    SUM(sales) OVER(PARTITION BY salesperson
+    ORDER BY month_number) AS running_total,
+    LAG(sales)OVER(PARTITION BY salesperson
+    ORDER BY month_number) AS previous_month_sales,
+    sales-LAG(sales) OVER (PARTITION BY salesperson
+    ORDER BY month_number) AS sales_change
+
+
+FROM
+    monthly_sales;
