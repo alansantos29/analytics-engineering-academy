@@ -72,6 +72,7 @@ AND EXTRACT(MONTH FROM order_date) = 2;
 
 
 --Calculate total sales amount per month.
+/*
 SELECT
     DATE_TRUNC('month',order_date) AS months,
     SUM(amount)
@@ -79,8 +80,46 @@ SELECT
 FROM
     orders
 GROUP BY months;
+*/
 
+--Date Arithmetic
 --How many days did each order take to be delivered?
+/*
+SELECT
+    order_id,
+    order_date,
+    delivery_date - order_date AS delivery_days
+
+
+FROM
+    orders;
+    */
+
+--INTERVAL
+/*
+SELECT 
+    order_id,
+    customer,
+    order_date,
+    amount
+
+FROM
+    orders
+
+WHERE order_date>= CURRENT_DATE - INTERVAL '30 days';
+*/
+
+--date ranges.
+--All orders made between 1 January 2026 and 31 March 2026.
+/*
+SELECT
+    *
+
+FROM orders
+WHERE order_date BETWEEN '2026-01-01' AND '2026-03-31';
+*/
+
+--Dates + Window Functions
 
 
 
