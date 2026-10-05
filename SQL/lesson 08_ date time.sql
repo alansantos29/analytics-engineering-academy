@@ -121,8 +121,35 @@ WHERE order_date BETWEEN '2026-01-01' AND '2026-03-31';
 
 --Dates + Window Functions
 
+WITH monthly_sales AS (
+        SELECT
+            DATE_TRUNC('month',order_date) AS month,
+            sum(amount) AS total_sales
+            FROM orders
+            GROUP BY month
+)
 
 
+SELECT 
+    month,
+
+    total_sales,
+
+    LAG(total_sales) OVER (
+    ORDER BY month) AS previous_month_sales,
+
+    total_sales - LAG(total_sales) OVER (
+    ORDER BY month) AS sales_change,
+
+    (total_sales - LAG(total_sales) OVER (
+    ORDER BY month))/ LAG(total_sales) OVER (
+    ORDER BY month) * 100.0 AS percentage_change
+
+
+
+FROM 
+    monthly_sales;
+        
 
 
 
