@@ -120,7 +120,7 @@ WHERE order_date BETWEEN '2026-01-01' AND '2026-03-31';
 */
 
 --Dates + Window Functions
-
+/*
 WITH monthly_sales AS (
         SELECT
             DATE_TRUNC('month',order_date) AS month,
@@ -149,6 +149,26 @@ SELECT
 
 FROM 
     monthly_sales;
+*/
+
+-- Final Date & Time Challenge
+
+SELECT
+    DATE_TRUNC('month',order_date) AS month,
+    Count(order_id) AS number_of_orders,
+    SUM(amount) AS total_sales,
+    AVG(delivery_date-order_date) AS average_delivery_days
+
+
+
+FROM
+    orders
+
+GROUP BY DATE_TRUNC('month',order_date);
+
+
+
+
         
 
 
