@@ -145,6 +145,33 @@ FROM
     customers;
     */
 
+
 -- Exercise 9
+/*
+SELECT
+    customer_id,
+    email,
+    TRIM(LOWER(SUBSTRING(email FROM 1 
+    FOR POSITION('@' IN email)-1
+            ))) AS email_username
 
 
+FROM
+    customers;
+*/
+
+--Final Challenge — Customer Data Cleaning
+
+SELECT
+    customer_id,
+    TRIM(Upper(customer_name)) AS clean_name,
+    TRIM(LOWER(email)) AS clean_email,
+    TRIM(UPPER(city)) AS clean_city,
+    REPLACE(phone,'-','') AS clean_phone,
+    SUBSTRING(TRIM(LOWER(email)) FROM 1
+    FOR POSITION('@' IN TRIM(LOWER(email)))-1) AS email_username
+    
+
+
+FROM
+    customers;
