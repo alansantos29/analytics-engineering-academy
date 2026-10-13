@@ -130,21 +130,40 @@ FROM
 
 --Final Challenge: Customer Performance Report
 
-WITH 
+WITH clean_customer_sales AS (
+    
+    SELECT
+        customer_id,
+        customer_name,
+        COALESCE(total_spent,0) AS adjusted_spending,
+        COALESCE(total_orders,0) AS adjusted_orders
+
+    FROM customer_sales
+)
+
+
 
 
 SELECT
     customer_id,
     customer_name,
-    COALESCE(total_orders,0) AS adjusted_orders,
-    COALESCE(total_orders,0) AS adjusted_orders,
-    WHEN 
+    adjusted_spending,
+    adjusted_orders,
 
+    CASE
+        WHEN adjusted_spending>=3000 AND adjusted_orders>=10 THEN 'VIP'
+        WHEN adjusted_spending >=1000 OR adjusted_orders>=5 THEN 'Regular'
+        ELSE 'Basic'
+    END AS customer_segment,
+    
+    CASE
+        WHEN (adjusted_spending>=3000 AND adjusted_orders>=10) OR (adjusted_spending>=1000 AND adjusted_orders>=7) THEN 'Eligible'
+        ELSE 'Not Eligible'
 
-    END AS customer_segment
+    END AS reward_status,
 
-
+    ROUND(adjusted_spending::NUMERIC/NULLIF(adjusted_orders,0),2) AS average_order_value
 
 
 FROM
-    customer_sales;
+    clean_customer_sales;
