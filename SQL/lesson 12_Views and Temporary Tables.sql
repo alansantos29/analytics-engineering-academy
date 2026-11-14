@@ -52,17 +52,47 @@ FROM
 
 
 --Lesson 4 — Updating SQL Views
-CREATE oR REPLACE VIEW customer_spending_summary
+/*
+CREATE OR REPLACE VIEW customer_spending_summary AS
 
 SELECT
     customer_id,
     customer_name,
     total_spent,
     total_orders,
-    average_order_value,
-    
-    
-    AS spending_category
+    ROUND(total_spent::NUMERIC/NULLIF(total_orders,0),2) AS average_order_value,
+    CASE
+        WHEN total_spent >=3000 then 'High Spender'
+        WHEN total_spent >=1000 then 'Medium Spender'
+        Else 'Low Spender'
+    END AS spending_category
 
 FROM 
     customer_sales;
+*/
+
+--Lesson 5: Temporary Tables
+-- create a temporary table named 
+--medium_spending_customers using the 
+--customer_spending_summary view.
+/*
+
+CREATE TEMP TABLE medium_spending_customers AS
+
+SELECT
+    customer_id,
+    customer_name,
+    total_spent,
+    average_order_value
+
+FROM customer_spending_summary
+WHERE spending_category = 'Medium Spender';
+
+
+--Display the TEMP table
+SELECT *
+FROM medium_spending_customers;
+*/
+
+--Module 16 — Final Challenge: Customer Reporting Layer
+
