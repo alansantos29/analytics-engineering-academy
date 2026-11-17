@@ -95,4 +95,47 @@ FROM medium_spending_customers;
 */
 
 --Module 16 — Final Challenge: Customer Reporting Layer
+--Part 1 — Create a reporting View
+/*CREATE OR REPLACE VIEW customer_reporting AS
+
+Select 
+    customer_id,
+    customer_name,
+    total_spent,
+    average_order_value,
+    spending_category
+
+FROM
+    customer_spending_summary;
+    */
+
+--Part 2 — Create a Temporary Table
+
+CREATE TEMP TABLE high_value_customers AS 
+
+Select 
+    customer_id,
+    customer_name,
+    total_spent,
+    average_order_value,
+    spending_category
+
+FROM
+    customer_reporting
+WHERE
+    spending_category = 'High Spender';
+    
+
+--Part 3 — Management Summary
+SELECT
+    count(customer_id) AS total_high_value_customers,
+    sum(total_spent) AS total_high_value_revenue,
+    ROUND(AVG(total_spent),2) AS average_high_value_spending
+
+
+FROM  
+    high_value_customers;
+
+
+
 
