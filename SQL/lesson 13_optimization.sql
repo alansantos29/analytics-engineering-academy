@@ -18,7 +18,13 @@ ON transactions(customer_id);
 */
 
 --Inspect your first execution plan
+/*
 EXPLAIN ANALYZE
 SELECT *
 FROM transactions
 WHERE customer_id = 100;
+*/
+
+-- Check all transactions on the transaction  table
+SELECT *
+FROM transactions;
